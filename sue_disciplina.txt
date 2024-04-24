@@ -1,0 +1,32 @@
+const sqlite3 = require('sqlite3');
+const express = require("express")
+
+const app = express()
+const port = 3000
+ 
+const db = new sqlite3.Database("./sue.db",
+sqlite3.OPEN_READWRITE, (err) => {
+       if (err) return console.error(err.message)
+});
+
+let sql;
+
+sql = `INSERT INTO disciplina (nome, carga_horaria) VALUES (?, ?)`;
+db.run(
+  sql,
+  ["Matematica", "120"],
+  (err) => {
+    if (err) return console.error(err.message);
+  }
+);
+
+sql = `DELETE FROM disciplina WHERE id_disciplina = ?`;
+db.run(
+sql,
+[1],
+(err) => {
+if (err) return console.error(err.message);
+});
+
+
+
